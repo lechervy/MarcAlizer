@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/musk/!svn/ver/85/JDescriptors/src/fr/lip6/jdescriptors/color
+END
+ColorVQDescriptorCreator.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/musk/!svn/ver/85/JDescriptors/src/fr/lip6/jdescriptors/color/ColorVQDescriptorCreator.java
+END
+DefaultColorQuantizer.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/musk/!svn/ver/46/JDescriptors/src/fr/lip6/jdescriptors/color/DefaultColorQuantizer.java
+END
+ColorQuantizer.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/musk/!svn/ver/46/JDescriptors/src/fr/lip6/jdescriptors/color/ColorQuantizer.java
+END
+ColorVQFloatDescriptor.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/musk/!svn/ver/65/JDescriptors/src/fr/lip6/jdescriptors/color/ColorVQFloatDescriptor.java
+END

@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/musk/!svn/ver/165/JDescriptors/src/fr/lip6/jdescriptors/bin
+END
+GaborNormalizer.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/musk/!svn/ver/119/JDescriptors/src/fr/lip6/jdescriptors/bin/GaborNormalizer.java
+END
+MacroGaborIndexing.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/musk/!svn/ver/116/JDescriptors/src/fr/lip6/jdescriptors/bin/MacroGaborIndexing.java
+END
+GaborIndexing.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/musk/!svn/ver/110/JDescriptors/src/fr/lip6/jdescriptors/bin/GaborIndexing.java
+END
+CreateIHSVectors.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/musk/!svn/ver/87/JDescriptors/src/fr/lip6/jdescriptors/bin/CreateIHSVectors.java
+END
+SpatialPyramids.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/musk/!svn/ver/165/JDescriptors/src/fr/lip6/jdescriptors/bin/SpatialPyramids.java
+END
+VisualCodeBook.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/musk/!svn/ver/119/JDescriptors/src/fr/lip6/jdescriptors/bin/VisualCodeBook.java
+END
+VladRepresentation.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/musk/!svn/ver/146/JDescriptors/src/fr/lip6/jdescriptors/bin/VladRepresentation.java
+END
+DistanceVisualWordPyramid.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/musk/!svn/ver/150/JDescriptors/src/fr/lip6/jdescriptors/bin/DistanceVisualWordPyramid.java
+END
