@@ -8,9 +8,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
-import fr.lip6.jdescriptors.Descriptor;
-import fr.lip6.jdescriptors.clustering.ThreadedKMeans;
-import fr.lip6.jdescriptors.io.DescriptorReader;
+import JDescriptors.fr.lip6.Descriptor;
+import JDescriptors.fr.lip6.clustering.ThreadedKMeans;
+import JDescriptors.fr.lip6.io.DescriptorReader;
+
 
 public class VisualCodeBook {
 

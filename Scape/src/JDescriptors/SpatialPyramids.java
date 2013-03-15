@@ -10,12 +10,13 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
-import fr.lip6.jdescriptors.Descriptor;
-import fr.lip6.jdescriptors.bof.SpatialPyramidFactory;
-import fr.lip6.jdescriptors.bof.SpatialPyramidFactory.Coding;
-import fr.lip6.jdescriptors.bof.SpatialPyramidFactory.Norm;
-import fr.lip6.jdescriptors.bof.SpatialPyramidFactory.Pooling;
-import fr.lip6.jdescriptors.io.DescriptorReader;
+import JDescriptors.fr.lip6.Descriptor;
+import JDescriptors.fr.lip6.bof.SpatialPyramidFactory;
+import JDescriptors.fr.lip6.bof.SpatialPyramidFactory.Coding;
+import JDescriptors.fr.lip6.bof.SpatialPyramidFactory.Norm;
+import JDescriptors.fr.lip6.bof.SpatialPyramidFactory.Pooling;
+import JDescriptors.fr.lip6.io.DescriptorReader;
+
 
 
 

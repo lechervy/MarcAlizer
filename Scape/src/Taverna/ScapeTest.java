@@ -16,10 +16,10 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
-import fr.lip6.jdescriptors.Descriptor;
 
 import JDescriptors.CreateIHSVectors;
 import JDescriptors.SpatialPyramids;
+import JDescriptors.fr.lip6.Descriptor;
 import JKernelMachines.fr.lip6.classifier.SMOSVM;
 import JKernelMachines.fr.lip6.kernel.IndexedKernel;
 import Scape.Classification;

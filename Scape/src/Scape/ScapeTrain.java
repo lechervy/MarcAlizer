@@ -162,7 +162,7 @@ public class ScapeTrain {
 		 * IndexedKernel
 		 * IN: Toutes les OUT de SpatialPyramide
 		 * OUT: Le vecteur des distances
-		 */		
+		 */		/*
 		IndexedKernel.run(rHistoSiftPartieVisible100, "", distmean, gamma, bComptuteMeanDist,true,m);
 		IndexedKernel.run(rHistoSiftPartieVisible100, "", distmean, gamma, bComptuteMeanDist,false,m);
 		IndexedKernel.run(rHistoSiftPartieVisible200, "", distmean, gamma, bComptuteMeanDist,true,m);
@@ -179,6 +179,7 @@ public class ScapeTrain {
 		IndexedKernel.run(rHistoHSVPartieVisible100, "", distmean, gamma, bComptuteMeanDist,false,m);
 		IndexedKernel.run(rHistoHSVPartieVisible200, "", distmean, gamma, bComptuteMeanDist,true,m);
 		IndexedKernel.run(rHistoHSVPartieVisible200, "", distmean, gamma, bComptuteMeanDist,false,m);
+		*/
 //		IndexedKernel2.run(rHistoSiftImagette100, "", distmean, gamma, bComptuteMeanDist,true,m);
 //		IndexedKernel2.run(rHistoSiftImagette100, "", distmean, gamma, bComptuteMeanDist,false,m);
 //		IndexedKernel2.run(rHistoSiftImagette200, "", distmean, gamma, bComptuteMeanDist,true,m);
@@ -193,7 +194,7 @@ public class ScapeTrain {
 		 * IN: Arbres delta
 		 * OUT: Caractéristiques structurelles pour chaque couple
 		 */
-		XMLDescriptors.Main.run(rDeltas,m);
+//		XMLDescriptors.Main.run(rDeltas,m);
 		
 		/**
 		 * Ajout des etiquettes

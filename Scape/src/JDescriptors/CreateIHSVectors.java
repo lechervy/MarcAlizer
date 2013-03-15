@@ -5,12 +5,13 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import fr.lip6.jdescriptors.Descriptor;
-import fr.lip6.jdescriptors.color.ColorVQDescriptorCreator;
-import fr.lip6.jdescriptors.color.ColorVQFloatDescriptor;
-import fr.lip6.jdescriptors.color.model.IHSColorQuantizer;
-import fr.lip6.jdescriptors.detector.HoneycombDetector;
-import fr.lip6.jdescriptors.io.XMLWriter;
+import JDescriptors.fr.lip6.Descriptor;
+import JDescriptors.fr.lip6.color.ColorVQDescriptorCreator;
+import JDescriptors.fr.lip6.color.ColorVQFloatDescriptor;
+import JDescriptors.fr.lip6.color.model.IHSColorQuantizer;
+import JDescriptors.fr.lip6.detector.HoneycombDetector;
+import JDescriptors.fr.lip6.io.XMLWriter;
+
 
 public class CreateIHSVectors {
 	/**
