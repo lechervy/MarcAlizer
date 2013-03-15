@@ -1,129 +1,0 @@
-10
-
-dir
-213
-https://alm.lip6.fr:2004/svn/musk/JDescriptors/src/fr/lip6/jdescriptors
-https://alm.lip6.fr:2004/svn/musk
-
-
-
-2010-07-26T12:35:57.528047Z
-167
-dpicard
-
-
-svn:special svn:externals svn:needs-lock
-
-
-
-
-
-
-
-
-
-
-
-403443af-8b34-4669-869e-d1a78eba9b46
-
-Descriptor.java
-file
-
-
-
-
-2011-04-05T14:02:32.000000Z
-22c66a6b6f304dd87e47d13f1abab79a
-2010-06-02T11:39:17.547976Z
-120
-dpicard
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-1774
-
-DescriptorCreator.java
-file
-
-
-
-
-2011-04-05T14:02:32.000000Z
-97ef4c7a67fdc30d4d305398f34ce46d
-2010-02-03T14:08:40.656525Z
-46
-dpicard
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-182
-
-bin
-dir
-
-bof
-dir
-
-clustering
-dir
-
-color
-dir
-
-detector
-dir
-
-filters
-dir
-
-io
-dir
-
-quantizer
-dir
-
-sift
-dir
-
-test
-dir
-
-texture
-dir
-
