@@ -514,7 +514,7 @@ public class SMOSVM<T> implements Classifier<T>, Serializable, Cloneable {
 		
 		return sum - b;
 	}
-	
+		
 	/**
 	 * returns support vectors weights
 	 */

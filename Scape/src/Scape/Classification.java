@@ -447,7 +447,7 @@ public class Classification {
 		try {
 			line = r.readLine();
 		}catch (IOException e1) {e1.printStackTrace();}
-		lignes.add(Double.parseDouble(line));
+		//lignes.add(Double.parseDouble(line));
 		while (line != null){
 			try {
 				lignes.add(Double.parseDouble(line));
@@ -456,8 +456,10 @@ public class Classification {
 		}
 
 		exemple = new double[lignes.size()];
-		for(int i=0;i<lignes.size();i++) 
+		for(int i=0;i<lignes.size();i++) {
 			exemple[i] = lignes.get(i);
+		System.err.println("..."+exemple[i]);
+		}
 		
 		/**
 		 * Chargement du SVM
