@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/musk/!svn/ver/167/JDescriptors/src/fr/lip6/jdescriptors/texture
+END
+MacroGaborDescriptorCreator.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/musk/!svn/ver/167/JDescriptors/src/fr/lip6/jdescriptors/texture/MacroGaborDescriptorCreator.java
+END
+GaborDescriptor.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/musk/!svn/ver/98/JDescriptors/src/fr/lip6/jdescriptors/texture/GaborDescriptor.java
+END
+Filter.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/musk/!svn/ver/65/JDescriptors/src/fr/lip6/jdescriptors/texture/Filter.java
+END
+GaborFilterFactory.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/musk/!svn/ver/111/JDescriptors/src/fr/lip6/jdescriptors/texture/GaborFilterFactory.java
+END
+GaborDescriptorCreator.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/musk/!svn/ver/167/JDescriptors/src/fr/lip6/jdescriptors/texture/GaborDescriptorCreator.java
+END

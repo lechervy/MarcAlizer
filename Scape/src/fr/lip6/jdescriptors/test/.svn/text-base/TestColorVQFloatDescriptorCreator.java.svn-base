@@ -1,0 +1,56 @@
+package fr.lip6.jdescriptors.test;
+
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import java.awt.RenderingHints;
+import java.awt.geom.Ellipse2D;
+import java.awt.image.BufferedImage;
+import java.awt.image.ColorConvertOp;
+import java.awt.image.RenderedImage;
+import java.awt.image.renderable.ParameterBlock;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
+import javax.media.jai.JAI;
+
+import fr.lip6.jdescriptors.color.ColorVQDescriptorCreator;
+import fr.lip6.jdescriptors.color.ColorVQFloatDescriptor;
+import fr.lip6.jdescriptors.color.model.IHSColorQuantizer;
+import fr.lip6.jdescriptors.detector.HoneycombDetector;
+import fr.lip6.jdescriptors.io.XMLWriter;
+
+public class TestColorVQFloatDescriptorCreator {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		
+		ColorVQDescriptorCreator c = ColorVQDescriptorCreator.getInstance();
+		
+		//honeycomb patches
+		HoneycombDetector detector = new HoneycombDetector(12, 12);
+		c.setDetector(detector);
+		
+		int x = 10, y = 6, z = 4;
+//		RGBColorQuantizer q =new RGBColorQuantizer(x, y, z); 
+		IHSColorQuantizer q = new IHSColorQuantizer(x, y, z);
+		c.setQuantizer(q);
+		
+		c.setNormalize(true);
+		
+		ArrayList<ColorVQFloatDescriptor> d = c.createDescriptors(args[0]);
+		
+//		for(ColorVQFloatDescriptor f : d)
+			System.out.println(XMLWriter.writeXMLString(d));
+		
+		System.out.println("size : "+d.size());
+
+	
+	}
+
+}
