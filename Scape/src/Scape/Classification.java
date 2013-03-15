@@ -432,7 +432,7 @@ public class Classification {
 		System.out.println("Ecart type: "+ std);
 		
 	}
-	
+	/*
 	public static void test(String m, String rSVM){
 		FileReader fr = null;
 		try {
@@ -442,7 +442,7 @@ public class Classification {
 		String line = "";
 		double[] exemple = null;
 		
-		/** Lecture du fichier contenant le descripteur **/
+		// Lecture du fichier contenant le descripteur
 		ArrayList<Double> lignes = new ArrayList<Double>();
 		try {
 			line = r.readLine();
@@ -461,9 +461,7 @@ public class Classification {
 		System.err.println("..."+exemple[i]);
 		}
 		
-		/**
-		 * Chargement du SVM
-		 */
+		 // Chargement du SVM
 		try {
 			FileInputStream fis = new FileInputStream(rSVM);
 			ObjectInputStream ois = new ObjectInputStream(fis);
@@ -476,7 +474,7 @@ public class Classification {
 		
 		
 		System.out.println(svm.valueOf(exemple));
-	}
+	}*/
 	
 	/**Calcule la distance**/
 	static double distance(double[] x1, double[] x2){
