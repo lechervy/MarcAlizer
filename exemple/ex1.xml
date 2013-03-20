@@ -2,7 +2,7 @@
 <java version="1.6.0_27" class="java.beans.XMLDecoder">
  <object class="Taverna.FileConfig">
   <void property="binSVM">
-   <string>/home/lechervya/code/MarcAlizer/exemple/work/svm</string>
+   <string>/home/lechervya/code/MarcAlizer/exemple/ex1/bin/svm</string>
   </void>
   <void property="dicoHsv">
    <void method="add">
