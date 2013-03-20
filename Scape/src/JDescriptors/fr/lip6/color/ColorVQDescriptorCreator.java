@@ -288,11 +288,14 @@ public ArrayList<Descriptor> createDescriptors(BufferedImage bfImg, int maxHeigh
 ////		BufferedImage dstImg = new BufferedImage(srcImg.getWidth(), srcImg.getHeight(), BufferedImage.TYPE_BYTE_INDEXED, quantizer.getColorModel());
 //		BufferedImage dstImg = new BufferedImage(quantizer.getColorModel(), srcImg.getRaster().createCompatibleWritableRaster(), false, null); 
 //		cco.filter(srcImg, dstImg);
-
+		//maxHeight=Math.min(bfImg.getHeight()-1, maxHeight);
+		
+		/*
 		Raster r;
 		ArrayList<Descriptor> list = new ArrayList<Descriptor>();
 		int nbCuts = bfImg.getHeight()/maxHeight + 1;
 		int deltaMove = onlyTop ? Math.min(bfImg.getHeight(), maxHeight) : bfImg.getHeight()/nbCuts;
+		System.out.println(bfImg.getHeight()+" -> "+ maxHeight+" == "+deltaMove);
 		ParameterBlock pb = new ParameterBlock();
 		pb.add(quantizer.getColorModel());
 		pb.add(quantizer.getColorModel().createCompatibleSampleModel(bfImg.getWidth(), deltaMove));
@@ -304,15 +307,34 @@ public ArrayList<Descriptor> createDescriptors(BufferedImage bfImg, int maxHeigh
 			else {
 				pb.addSource(bfImg.getSubimage(0, move, bfImg.getWidth(), deltaMove));
 			}
+			System.out.println(move+" "+nbSubImages+" "+bfImg.getWidth()+" "+nbCuts+" "+deltaMove+" "+onlyTop);
 			RenderedOp IHSImage  = JAI.create("colorconvert", pb);
 			r = IHSImage.getData();
-			
+			*/
+			Raster r;
+			ArrayList<Descriptor> list = new ArrayList<Descriptor>();
+			int deltaMove = onlyTop ? Math.min(bfImg.getHeight()-1, maxHeight) : bfImg.getHeight();
+			//System.out.println(bfImg.getHeight()+" -> "+ maxHeight+" == "+deltaMove);
+			ParameterBlock pb = new ParameterBlock();
+			pb.add(quantizer.getColorModel());
+			pb.add(quantizer.getColorModel().createCompatibleSampleModel(bfImg.getWidth(), deltaMove));
+			for (int nbSubImages = 0 ; nbSubImages < 1 ; ++nbSubImages){
+				int move = nbSubImages*bfImg.getHeight();
+				if (maxHeight == -1) {
+					pb.addSource(bfImg);
+				}
+				else {
+					pb.addSource(bfImg.getSubimage(0, move, bfImg.getWidth(), deltaMove));
+				}
+				//System.out.println(move+" "+nbSubImages+" "+bfImg.getWidth()+" "+deltaMove+" "+onlyTop);
+				RenderedOp IHSImage  = JAI.create("colorconvert", pb);
+				r = IHSImage.getData();
 			if(DEBUG)
 				System.err.println((System.currentTimeMillis()-time)/1000.0+"\t : ColorSpace convertion done");
 		
 			//3. loop over considered patches
 			ArrayList<ColorVQFloatDescriptor> listOfPatches;
-			if (maxHeight == -1 || nbCuts == 1){
+			if (maxHeight == -1 /*|| nbCuts == 1*/){
 				listOfPatches = detector.getDescriptors(ColorVQFloatDescriptor.class, bfImg);
 			}
 			else {

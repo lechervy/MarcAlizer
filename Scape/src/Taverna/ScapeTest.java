@@ -1,17 +1,16 @@
 package Taverna;
 
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
@@ -22,14 +21,12 @@ import JDescriptors.SpatialPyramids;
 import JDescriptors.fr.lip6.Descriptor;
 import JKernelMachines.fr.lip6.classifier.SMOSVM;
 import JKernelMachines.fr.lip6.kernel.IndexedKernel;
-import Scape.Classification;
-import Scape.ColorDescriptor;
 
 public class ScapeTest {
 	
-	private boolean isInialize=false;
-	private FileConfig configFile=null;
-	private SMOSVM<double[]> svm=null;
+	protected boolean isInialize=false;
+	protected FileConfig configFile=null;
+	protected SMOSVM<double[]> svm=null;
 	private ArrayList<double[][]> dicoCenters=null;
 	private ArrayList<double[]> dicoSigma=null;
 	
@@ -48,10 +45,13 @@ public class ScapeTest {
 		 * Download SVM
 		 */
 		try {
-			FileInputStream fis = new FileInputStream(configFile.getBinSVM());
-			ObjectInputStream ois = new ObjectInputStream(fis);
-			svm = (SMOSVM<double[]>)ois.readObject();
-			ois.close();
+			File f = new File(configFile.getBinSVM());
+			if(f.exists()){				
+				FileInputStream fis = new FileInputStream(f);
+				ObjectInputStream ois = new ObjectInputStream(fis);
+				svm = (SMOSVM<double[]>)ois.readObject();
+				ois.close();
+			}
 		}
 		catch (FileNotFoundException e) {e.printStackTrace();} 
 		catch (IOException e) {e.printStackTrace();} 
@@ -91,31 +91,8 @@ public class ScapeTest {
 			System.exit(-1);
 		}
 		
-		/* extract the visible part of web site */
-		image1 = image1.getSubimage(0, 0, image1.getWidth(),min(image1.getHeight(),1000)); 
-		image2 = image2.getSubimage(0, 0, image2.getWidth(),min(image2.getHeight(),1000));
-		
-		/* compute the HSV descriptor */		
-		ArrayList<Descriptor> colorDesc1=new ArrayList<Descriptor>();
-		ArrayList<Descriptor> colorDesc2=new ArrayList<Descriptor>();
-		CreateIHSVectors.run(image1,  colorDesc1,  8,  3,  6,  12,  6, 800, true);
-		CreateIHSVectors.run(image2,  colorDesc2,  8,  3,  6,  12,  6, 800, true);
-		
-		ArrayList<ArrayList<double[]> > histo1 = new ArrayList<ArrayList<double[]> >();
-		ArrayList<ArrayList<double[]> > histo2 = new ArrayList<ArrayList<double[]> >();
-		//parameters of clustering
-		int knn = 10;
-		String scales = "1x1";
-		boolean l1_vectors = false;					
-		/* BoW*/
-		for(int i=0 ; i<dicoSigma.size() ; i++){
-			try {
-				histo1.add(SpatialPyramids.run(colorDesc1, dicoCenters.get(i), dicoSigma.get(i), knn, scales, l1_vectors));
-				histo2.add(SpatialPyramids.run(colorDesc2, dicoCenters.get(i), dicoSigma.get(i), knn, scales, l1_vectors));
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
+		ArrayList<ArrayList<double[]> > histo1 = computeHisto(image1);
+		ArrayList<ArrayList<double[]> > histo2 = computeHisto(image2);
 		/* parameter of distance*/
 		String distmean = "TRUE";
 		String gamma = "1.0";
@@ -123,7 +100,7 @@ public class ScapeTest {
 		/* create the visual couple feature descriptors */
 		ArrayList<Double> pairDesc = new ArrayList<Double> ();
 		for(int i=0 ; i<histo1.size() ; i++){
-				IndexedKernel.run(histo1.get(i), histo2.get(i),pairDesc, distmean, gamma, bComptuteMeanDist,true);			
+				IndexedKernel.run(histo1.get(i), histo2.get(i),pairDesc, distmean, gamma, bComptuteMeanDist,true);
 				IndexedKernel.run(histo1.get(i), histo2.get(i),pairDesc, distmean, gamma, bComptuteMeanDist,false);
 		}
 		/* convert ArrayList in array of double*/
@@ -137,13 +114,44 @@ public class ScapeTest {
 		System.out.println("Distance between the two web-pages:: "+res);
 		return res;
 	}
+	/**
+	 * compute the descriptors of a image
+	 * @param image the image to descript
+	 * @return the descriptors of this image: One histogram for each descriptor.
+	 */
+	public ArrayList<ArrayList<double[]> > computeHisto(BufferedImage image){
+		
+		final int heightMax = 1000; 
+		/* extract the visible part of web site */
+		image = image.getSubimage(0, 0, image.getWidth(),min(image.getHeight(),heightMax)); 		
+	//	System.out.println(image.getWidth()+"x"+image.getHeight());
+		
+		/* compute the HSV descriptor */		
+		ArrayList<Descriptor> colorDesc=new ArrayList<Descriptor>();
+		CreateIHSVectors.run(image,  colorDesc,  8,  3,  6,  12,  6, heightMax, true);
+		
+		ArrayList<ArrayList<double[]> > histo = new ArrayList<ArrayList<double[]> >();
+		//parameters of clustering
+		int knn = 10;
+		String scales = "1x1";
+		boolean l1_vectors = false;					
+		/* BoW*/
+		for(int i=0 ; i<dicoSigma.size() ; i++){
+			try {
+				histo.add(SpatialPyramids.run(colorDesc, dicoCenters.get(i), dicoSigma.get(i), knn, scales, l1_vectors));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return histo;
+	}
 	
 	/**
 	 * Prend un fichier de configuration, regénére les descripteurs visuels et structurel si il n'existe pas et lance la fonction de distance sur les deux images
 	 * Si on ne dispose uniquement des descripteurs visuels ou structurelles, le classifieur correspondant sera utilisé
 	 * @param args le path du fichier de configuration du marcalizer
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) {		
 		ScapeTest sc= new ScapeTest();
 		sc.init(new File(args[0]));
 		try {
@@ -152,9 +160,41 @@ public class ScapeTest {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		}
-			
-			/** End **/
 	}
+/*
+	public static void main(String[] args) {
+		final String nameListeFile="/home/lechervya/code/MarcAlizer/train/images/labels.txt";
+		ScapeTest sc= new ScapeTest();
+		sc.init(new File(args[0]));
+		try {
+			FileReader fr=null;
+			BufferedReader r=null;
+			BufferedWriter w=new BufferedWriter(new FileWriter("/home/lechervya/code/MarcAlizer/exemple/work/res.txt"));
+			try {
+				fr = new FileReader(nameListeFile);
+				r = new BufferedReader(fr);
+			} 
+			catch (FileNotFoundException e) {e.printStackTrace();} 
+			String parent=(new File(nameListeFile)).getParentFile().getAbsolutePath()+"/";
+			try {
+				while(r.ready()){
+					String []l=r.readLine().split("\t");
+					double score=sc.run(ImageIO.read(new File(parent+l[1])), ImageIO.read(new File(parent+l[2])));
+					w.write(score+"\t"+l[1]+"\t"+l[2]+"\n");
+				}
+				w.close();
+				r.close();
+			} catch (NumberFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}			
+		} catch (IOException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}		
+	}*/
+
+	
 	/**
 	 * This function compute the minimum between a and b
 	 * @param a the first param
