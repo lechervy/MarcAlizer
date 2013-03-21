@@ -147,8 +147,7 @@ public class ScapeTest {
 	}
 	
 	/**
-	 * Prend un fichier de configuration, regénére les descripteurs visuels et structurel si il n'existe pas et lance la fonction de distance sur les deux images
-	 * Si on ne dispose uniquement des descripteurs visuels ou structurelles, le classifieur correspondant sera utilisé
+	 * 
 	 * @param args le path du fichier de configuration du marcalizer
 	 */
 	public static void main(String[] args) {		
