@@ -11,6 +11,7 @@ import java.io.FileWriter;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.net.URL;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
@@ -123,8 +124,7 @@ public class ScapeTest {
 		
 		final int heightMax = 1000; 
 		/* extract the visible part of web site */
-		image = image.getSubimage(0, 0, image.getWidth(),min(image.getHeight(),heightMax)); 		
-	//	System.out.println(image.getWidth()+"x"+image.getHeight());
+		image = image.getSubimage(0, 0, image.getWidth(),min(image.getHeight(),heightMax));
 		
 		/* compute the HSV descriptor */		
 		ArrayList<Descriptor> colorDesc=new ArrayList<Descriptor>();
@@ -147,14 +147,43 @@ public class ScapeTest {
 	}
 	
 	/**
-	 * 
+	 *
 	 * @param args le path du fichier de configuration du marcalizer
-	 */
+	 *//*
 	public static void main(String[] args) {		
 		ScapeTest sc= new ScapeTest();
 		sc.init(new File(args[0]));
 		try {
 			sc.run(ImageIO.read(new File(args[1])),ImageIO.read(new File(args[2])));
+		} catch (IOException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+	}*/
+	
+	/*public static void main(String[] args) {		
+		ScapeTest sc= new ScapeTest();
+		sc.init(new File(args[0]));
+		try {
+			sc.run(
+			ImageIO.read(new File("/home/lechervya/code/MarcAlizer/testIM/4/ref/screenshot-127/screenshot-127.png")),
+			ImageIO.read(new File ("/home/lechervya/code/MarcAlizer/testIM/4/ref/screenshot-127/screenshot-127_2.png"))
+			);
+		} catch (IOException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+	}*/
+	
+	public static void main(String[] args) {		
+		ScapeTest sc= new ScapeTest();
+		sc.init(new File(args[0]));
+		try {
+			URL url1=new URL("http://im1a11.internetmemory.org/shots/2/cas/screenshot-57.png");
+			//url1.openConnection().connect();
+			URL url2=new URL("http://im1a11.internetmemory.org/shots/2/ref/screenshot-57.png");
+			//url2.openConnection().connect();
+			sc.run(ImageIO.read(url1),ImageIO.read(url2));
 		} catch (IOException e2) {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();

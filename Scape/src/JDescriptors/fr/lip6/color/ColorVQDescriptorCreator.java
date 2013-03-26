@@ -231,7 +231,15 @@ public class ColorVQDescriptorCreator implements Serializable,
 	 * @return
 	 */
 public ArrayList<Descriptor> createDescriptors(BufferedImage bfImg, int maxHeight, boolean onlyTop) {
-		
+		//?????????
+		if(bfImg.getType()!= BufferedImage.TYPE_3BYTE_BGR)
+		{
+			BufferedImage bfImg2=new BufferedImage(bfImg.getWidth(), bfImg.getHeight(), BufferedImage.TYPE_3BYTE_BGR);
+			for(int i=0;i<bfImg.getWidth();i++)
+				for(int j=0;j<bfImg.getHeight();j++)
+					bfImg2.setRGB(i,j,bfImg.getRGB(i, j));
+			bfImg = bfImg2;
+		}		
 		if(DEBUG)
 		{
 			time = System.currentTimeMillis();
