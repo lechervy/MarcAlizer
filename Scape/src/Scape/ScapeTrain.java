@@ -13,44 +13,61 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 import JKernelMachines.fr.lip6.classifier.SMOSVM;
+import JKernelMachines.fr.lip6.evaluation.Evaluator;
 import JKernelMachines.fr.lip6.kernel.IndexedKernel;
 import JKernelMachines.fr.lip6.kernel.typed.DoubleLinear;
 import JKernelMachines.fr.lip6.type.TrainingSample;
 import Taverna.ScapeTest;
+import XMLDescriptors.XMLDescriptors;
 
 public class ScapeTrain extends ScapeTest{
 	private boolean isTrain=false;
-	private ArrayList<TrainingSample<double[]>> trainingSamples = new ArrayList<TrainingSample<double[]>>();
+	private /*public */ArrayList<TrainingSample<double[]>> trainingSamples = new ArrayList<TrainingSample<double[]>>();
+	
+	public void addExampleOfTrain(ArrayList<Double> pairDesc, int label){
+		label = label==1 ? 1 : -1;
+		/* convert ArrayList in array of double*/
+		double []pairDescTrain = new double[pairDesc.size()];
+		for(int j=0 ; j<pairDesc.size() ; j++)
+			pairDescTrain[j] = pairDesc.get(j).doubleValue();
+		
+		trainingSamples.add(new TrainingSample<double[]>(pairDescTrain, label));
+	}
 	
 	public void addExampleOfTrain(BufferedImage image1,BufferedImage image2, int label){
 		//we ignore the image with label 2
-		if(label==2){
+		if(label==2)
 			return;
-		}
-		else
-			label = label==1 ? 1 : -1;
-		/* compute the descriptor */
-		ArrayList<ArrayList<double[]> >  histo1 = computeHisto(image1);
-		ArrayList<ArrayList<double[]> >  histo2 = computeHisto(image2);
-		/* compute the pair */		
-		/* get Labels */
-		/* parameter of distance*/
-		String distmean = "TRUE";
-		String gamma = "1.0";
-		boolean bComptuteMeanDist = false;
-		ArrayList<Double> pairDesc = new ArrayList<Double> ();
-		for(int j=0 ; j<histo1.size() ; j++){
-			IndexedKernel.run(histo1.get(j), histo2.get(j),pairDesc, distmean, gamma, bComptuteMeanDist,true);
-			IndexedKernel.run(histo1.get(j), histo2.get(j),pairDesc, distmean, gamma, bComptuteMeanDist,false);
-		}
-
-		double []p = new double[pairDesc.size()];
-		for(int j=0 ; j<pairDesc.size() ; j++)
-			p[j] = pairDesc.get(j).doubleValue();
 		
-		trainingSamples.add(new TrainingSample<double[]>(p, label));
+		ArrayList<Double> pairDesc = new ArrayList<Double>();
+		create_features_visual(image1,image2,pairDesc);
+
+		addExampleOfTrain(pairDesc,label);
 	}
 	
+	public void addExampleOfTrain(File fichierXml1, File fichierXml2, int label){
+		//we ignore the image with label 2
+		if(label==2)
+			return;
+		
+		ArrayList<Double> pairDesc = new ArrayList<Double>();
+		XMLDescriptors.run(fichierXml1,fichierXml2,pairDesc);
+
+		addExampleOfTrain(pairDesc,label);
+	}
+	
+	public void addExampleOfTrain(File fichierXml1, File fichierXml2,BufferedImage image1,BufferedImage image2, int label){
+		//we ignore the image with label 2
+		if(label==2)
+			return;
+		
+		ArrayList<Double> pairDesc = new ArrayList<Double>();
+		create_features_visual(image2,image2,pairDesc);
+		XMLDescriptors.run(fichierXml1,fichierXml2,pairDesc);
+		
+		addExampleOfTrain(pairDesc,label);
+	}
+		
 	public void train(){
 		isTrain = true;
 		if(!isInialize){
@@ -62,7 +79,27 @@ public class ScapeTrain extends ScapeTest{
 		svm = new SMOSVM<double[]>(kernel);
 		//svm.setC(1);
 		svm.setVerbosityLevel(0);
-		
+
+		//////////////////////////////////////////////////////////////////
+		/*
+		double []means = {0,0,0,0};
+		double []sd = {0,0,0,0};
+		for(TrainingSample<double[]> ex:trainingSamples){
+			for(int i=0 ; i<ex.sample.length ; i++){
+				means[i]+=ex.sample[i];
+				sd[i]+=ex.sample[i]*ex.sample[i];
+			}
+		}
+		for(int i=0 ; i<4 ; i++){
+			means[i]/=4;
+			sd[i]-=means[i]*means[i];
+		}
+		for(TrainingSample<double[]> ex:trainingSamples){
+			for(int i=0 ; i<ex.sample.length ; i++){
+				ex.sample[i] = (ex.sample[i] -means[i])/Math.sqrt(sd[i]);				
+			}
+		}*/
+		//////////////////////////////////////////////////////////////////
 		svm.train(trainingSamples);
 		
 		/*Evaluator<double[]> evaluator = new Evaluator<double[]>(svm, trainingSamples, trainingSamples);
@@ -123,7 +160,15 @@ public class ScapeTrain extends ScapeTest{
 		}
 		
 		sc.train();
-		sc.saveSVM();
+		sc.saveSVM();/*
+		int score=0;
+		for(int j=0 ; j<sc.trainingSamples.size() ; j++){
+			TrainingSample<double[]> ex=sc.trainingSamples.remove(0);
+			sc.train();
+			score+=sc.svm.valueOf(ex.sample)*ex.label>0 ? 1 : 0;
+			sc.trainingSamples.add(ex);
+		}
+		System.out.println("Score: "+score*1.0/sc.trainingSamples.size());*/
 	}
 	
 }

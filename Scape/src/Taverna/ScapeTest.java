@@ -16,6 +16,8 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
+import XMLDescriptors.XMLDescriptors;
+
 
 import JDescriptors.CreateIHSVectors;
 import JDescriptors.SpatialPyramids;
@@ -86,7 +88,7 @@ public class ScapeTest {
 	 * @param imageIn1
 	 * @param imageIn2
 	 */
-	public double run(BufferedImage image1,BufferedImage image2){
+	public void create_features_visual(BufferedImage image1,BufferedImage image2,ArrayList<Double> pairDesc){
 		if(!isInialize){
 			System.err.println("we must initialize algorithm");
 			System.exit(-1);
@@ -99,11 +101,13 @@ public class ScapeTest {
 		String gamma = "1.0";
 		boolean bComptuteMeanDist = false;
 		/* create the visual couple feature descriptors */
-		ArrayList<Double> pairDesc = new ArrayList<Double> ();
 		for(int i=0 ; i<histo1.size() ; i++){
 				IndexedKernel.run(histo1.get(i), histo2.get(i),pairDesc, distmean, gamma, bComptuteMeanDist,true);
 				IndexedKernel.run(histo1.get(i), histo2.get(i),pairDesc, distmean, gamma, bComptuteMeanDist,false);
 		}
+	}
+	
+	public double run(ArrayList<Double> pairDesc){
 		/* convert ArrayList in array of double*/
 		double[] pairDescTest = new double[pairDesc.size()];
 		int i=0;
@@ -113,7 +117,46 @@ public class ScapeTest {
 		/* run SVM*/
 		double res = svm.valueOf(pairDescTest);
 		System.out.println("Distance between the two web-pages:: "+res);
-		return res;
+		return res;		
+	}
+	
+	/**
+	 * 
+	 * @param imageIn1
+	 * @param imageIn2
+	 */
+	public double run(BufferedImage image1,BufferedImage image2){
+		/* create the visual couple feature descriptors */
+		ArrayList<Double> pairDesc = new ArrayList<Double> ();
+		create_features_visual(image1,image2,pairDesc);
+		return run(pairDesc);
+	}
+	/**
+	 * 
+	 * @param fichierXml1
+	 * @param fichierXml2
+	 * @return
+	 */
+	public double run(File fichierXml1, File fichierXml2){
+		/* create the visual couple feature descriptors */
+		ArrayList<Double> pairDesc = new ArrayList<Double> ();
+		XMLDescriptors.run(fichierXml1, fichierXml2, pairDesc);
+		return run(pairDesc);
+	}
+	/**
+	 * 
+	 * @param fichierXml1
+	 * @param fichierXml2
+	 * @param image1
+	 * @param image2
+	 * @return
+	 */
+	public double run(File fichierXml1, File fichierXml2,BufferedImage image1,BufferedImage image2){
+		/* create the visual couple feature descriptors */
+		ArrayList<Double> pairDesc = new ArrayList<Double> ();
+		create_features_visual(image1,image2,pairDesc);
+		XMLDescriptors.run(fichierXml1, fichierXml2, pairDesc);
+		return run(pairDesc);
 	}
 	/**
 	 * compute the descriptors of a image

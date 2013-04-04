@@ -3,6 +3,7 @@ package XMLDescriptors;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Hashtable;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -15,7 +16,7 @@ import org.w3c.dom.NodeList;
 
 
 
-public class Main {
+public class XMLDescriptors {
 
 	//static Document documentDelta;
 	//static Document documentViXML1;
@@ -25,21 +26,20 @@ public class Main {
 	static Document documentViXML1;
 	static Document documentViXML2;
 	
-	public static void run(File fichierXml1, File fichierXml2, File fichierDelta, String repM) {
+	public static void run(File fichierXml1, File fichierXml2/*, File fichierDelta*/, ArrayList<Double> desc) {
 		// TODO Auto-generated method stub
 		//Element rootDelta;
 		Element rootViXML1;
 		Element rootViXML2;
 
-		double[] tableJaccardIndexLinks  = new double[1];
-		double[] tableJaccardIndexImages = new double[1];
+		//double[] tableJaccardIndex  = new double[2];//Links & Images 
 
 		//On crée une instance de SAXBuilder
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		try
 		{
 			DocumentBuilder builder = factory.newDocumentBuilder();
-			documentDelta  = builder.parse(fichierDelta);
+			//documentDelta  = builder.parse(fichierDelta);
 			documentViXML1 = builder.parse(fichierXml1);
 			documentViXML2 = builder.parse(fichierXml2);
 			//Le parsing est terminé ;)
@@ -51,11 +51,9 @@ public class Main {
 		//On initialise un nouvel élément racine avec l'élément racine du document.
 		rootViXML1 = documentViXML1.getDocumentElement();
 		rootViXML2 = documentViXML2.getDocumentElement();
-		tableJaccardIndexLinks[0]  = JaccardIndexLinks(rootViXML1, rootViXML2, false);
-		tableJaccardIndexImages[0] = JaccardIndexImages(rootViXML1, rootViXML2, false);
+		desc.add(JaccardIndexLinks(rootViXML1, rootViXML2, false));
+		desc.add(JaccardIndexImages(rootViXML1, rootViXML2, false));
 	
-		writeTable(tableJaccardIndexLinks, repM);
-		writeTable(tableJaccardIndexImages, repM);
 	}
 	
 	/**
