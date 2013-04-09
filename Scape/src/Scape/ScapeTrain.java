@@ -62,12 +62,12 @@ public class ScapeTrain extends ScapeTest{
 			return;
 		
 		ArrayList<Double> pairDesc = new ArrayList<Double>();
-		create_features_visual(image2,image2,pairDesc);
+		create_features_visual(image1,image2,pairDesc);
 		XMLDescriptors.run(fichierXml1,fichierXml2,pairDesc);
 		
 		addExampleOfTrain(pairDesc,label);
 	}
-		
+	
 	public void train(){
 		isTrain = true;
 		if(!isInialize){

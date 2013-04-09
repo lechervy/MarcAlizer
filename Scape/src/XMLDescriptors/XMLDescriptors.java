@@ -3,6 +3,7 @@ package XMLDescriptors;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
@@ -13,6 +14,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 
 
 
@@ -40,8 +42,8 @@ public class XMLDescriptors {
 		{
 			DocumentBuilder builder = factory.newDocumentBuilder();
 			//documentDelta  = builder.parse(fichierDelta);
-			documentViXML1 = builder.parse(fichierXml1);
-			documentViXML2 = builder.parse(fichierXml2);
+			documentViXML1 = builder.parse(new InputSource(new StringReader(fichierXml1)));
+			documentViXML2 = builder.parse(new InputSource(new StringReader(fichierXml2)));
 			//Le parsing est terminé ;)
 		}
 		catch(Exception e){
