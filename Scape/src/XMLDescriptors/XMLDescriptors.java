@@ -26,7 +26,7 @@ public class XMLDescriptors {
 	static Document documentViXML1;
 	static Document documentViXML2;
 	
-	public static void run(File fichierXml1, File fichierXml2/*, File fichierDelta*/, ArrayList<Double> desc) {
+	public static void run(String fichierXml1, String fichierXml2/*, String fichierDelta*/, ArrayList<Double> desc) {
 		// TODO Auto-generated method stub
 		//Element rootDelta;
 		Element rootViXML1;

@@ -45,7 +45,7 @@ public class ScapeTrain extends ScapeTest{
 		addExampleOfTrain(pairDesc,label);
 	}
 	
-	public void addExampleOfTrain(File fichierXml1, File fichierXml2, int label){
+	public void addExampleOfTrain(String fichierXml1, String fichierXml2, int label){
 		//we ignore the image with label 2
 		if(label==2)
 			return;
@@ -56,7 +56,7 @@ public class ScapeTrain extends ScapeTest{
 		addExampleOfTrain(pairDesc,label);
 	}
 	
-	public void addExampleOfTrain(File fichierXml1, File fichierXml2,BufferedImage image1,BufferedImage image2, int label){
+	public void addExampleOfTrain(String fichierXml1, String fichierXml2,BufferedImage image1,BufferedImage image2, int label){
 		//we ignore the image with label 2
 		if(label==2)
 			return;

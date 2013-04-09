@@ -137,7 +137,7 @@ public class ScapeTest {
 	 * @param fichierXml2
 	 * @return
 	 */
-	public double run(File fichierXml1, File fichierXml2){
+	public double run(String fichierXml1, String fichierXml2){
 		/* create the visual couple feature descriptors */
 		ArrayList<Double> pairDesc = new ArrayList<Double> ();
 		XMLDescriptors.run(fichierXml1, fichierXml2, pairDesc);
@@ -151,7 +151,7 @@ public class ScapeTest {
 	 * @param image2
 	 * @return
 	 */
-	public double run(File fichierXml1, File fichierXml2,BufferedImage image1,BufferedImage image2){
+	public double run(String fichierXml1, String fichierXml2,BufferedImage image1,BufferedImage image2){
 		/* create the visual couple feature descriptors */
 		ArrayList<Double> pairDesc = new ArrayList<Double> ();
 		create_features_visual(image1,image2,pairDesc);
